@@ -47,21 +47,23 @@ public class MainServlet extends HttpServlet {
 			sb.append(line);
 		}
 		
-		System.out.println("接收的消息: \n" + sb.toString());
+		//System.out.println("接收的消息: \n" + sb.toString());
+		
+		String xmlMessage = sb.toString();
 		
 		//接收的消息，如果是安全模式下传输的密文并解密消息。
 		if(encrypt_type != null){
 			try {
 				WXBizMsgCrypt mc = new WXBizMsgCrypt(AppConfig.token, AppConfig.EncodingAESKey, AppConfig.AppID);
-				String result = mc.decryptMsg(msg_signature, timestamp, nonce, sb.toString());
-				//System.out.println("解密后明文: \n" + result);
-				
-				Map<String, String> map=WXUtil.xmlToMap(result);
-				System.out.println(map);
-				
+				xmlMessage = mc.decryptMsg(msg_signature, timestamp, nonce, sb.toString());
+				//System.out.println("解密后明文: \n" + xmlMessage);
 			} catch (AesException e) {
 				e.printStackTrace();
 			}
 		}
+		
+		Map<String, String> mapMessage = WXUtil.xmlToMap(xmlMessage);
+		System.out.println(mapMessage);
+		
 	}
 }
