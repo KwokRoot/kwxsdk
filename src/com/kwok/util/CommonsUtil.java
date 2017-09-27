@@ -14,7 +14,7 @@ public class CommonsUtil {
 	public static SimpleDateFormat getSimpleDateFormat(){
 		
 		if(simpleDateFormat==null){
-			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		}
 		
 		return simpleDateFormat;
