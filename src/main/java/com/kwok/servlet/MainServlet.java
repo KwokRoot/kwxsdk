@@ -20,8 +20,8 @@ import com.kwok.model.request.RequestTextMessageModel;
 import com.kwok.model.response.ResponseEventModel;
 import com.kwok.model.response.ResponseTextMessageModel;
 import com.kwok.util.WXUtil;
-import com.qq.weixin.mp.aes.AesException;
-import com.qq.weixin.mp.aes.WXBizMsgCrypt;
+import com.kwok.util.aes.AesException;
+import com.kwok.util.aes.WXBizMsgCrypt;
 
 @WebServlet("/MainServlet")
 public class MainServlet extends HttpServlet {

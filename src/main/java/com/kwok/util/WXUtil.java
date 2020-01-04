@@ -51,7 +51,6 @@ public class WXUtil {
 	 * @param xmlStr
 	 * @return Map
 	 */
-	@SuppressWarnings("unchecked")
 	public static Map<String,String> xmlToMap(String xmlStr) {
 		Map<String,String>map=new HashMap<String,String>();
 		SAXReader reader=new SAXReader();	
@@ -70,7 +69,7 @@ public class WXUtil {
 		}	
 		
 		for(Element e:list){
-			map.put(e.getName(),e.getText());	
+			map.put(e.getName(), e.getText());	
 		}
 		return map;	
 	}
