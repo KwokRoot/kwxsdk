@@ -1,9 +1,12 @@
-1、实现微信网页授权获取用户信息。
-2、简单实现微信消息服务器回复各类型消息的功能框架。
-3、简单实现关注微信订阅号投票的功能框架。(com.kwok.servlet.ActivityServlet.java 、 activity.jsp 、 user_a 表、 user_b 表、 record_1 表。)
-4、简单实现微信网页小游戏得分和排行榜的功能框架。(com.kwok.servlet.Activity2Servlet.java 、 activity2.jsp 、 rank.jsp 、 user_a 表、 user_b 表、  record_2 表。)
-5、实现微信 JS-SDK 配置信息注入。(com.kwok.servlet.WeiXinShareConfigServlet.java 、 includeShare.jsp 、 testShare.jsp 、 jweixin-1.2.0.js。)
-6、包结构。
+### kwxsdk-oauth
+---
+1. **实现微信网页授权获取用户信息。**
+2. **简单实现微信消息服务器回复各类型消息的功能框架。**
+3. **简单实现关注微信订阅号投票的功能框架。(com.kwok.servlet.ActivityServlet.java 、 activity.jsp 、 user_a 表、 user_b 表、 record_1 表。)**
+4. **简单实现微信网页小游戏得分和排行榜的功能框架。(com.kwok.servlet.Activity2Servlet.java 、 activity2.jsp 、 rank.jsp 、 user_a 表、 user_b 表、  record_2 表。)**
+5. **实现微信 JS-SDK 配置信息注入。(com.kwok.servlet.WeiXinShareConfigServlet.java 、 includeShare.jsp 、 testShare.jsp 、 jweixin-1.2.0.js。)**
+
+###### 包结构。
 ```
 │  pom.xml
 │  ReadMe
