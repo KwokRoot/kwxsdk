@@ -62,7 +62,7 @@ public class MainServlet extends HttpServlet {
 		
 		WXBizMsgCrypt mc = null;
 		try {
-			mc = new WXBizMsgCrypt(AppConfig.token, AppConfig.EncodingAESKey, AppConfig.AppID);
+			mc = new WXBizMsgCrypt(AppConfig.token_B, AppConfig.EncodingAESKey_B, AppConfig.AppID_B);
 		} catch (AesException e) {
 			System.err.println("------ 消息加解密初始化错误 ------");
 			e.printStackTrace();
