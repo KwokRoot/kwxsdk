@@ -1,5 +1,6 @@
 package com.kwok.controller;
 
+import com.kwok.biz.MseeageHander;
 import com.kwok.model.request.RequestTextMessageModel;
 import com.kwok.model.response.ResponseTextMessageModel;
 
@@ -19,7 +20,8 @@ public class TextMessageController {
 		responseTextMessageModel.setFromUserName((requestTextMessageModel.getToUserName()));
 		responseTextMessageModel.setCreateTime(Long.toString(System.currentTimeMillis()));
 		
-		responseTextMessageModel.setContent("亲，对不起：“" + requestContent + "” 指令还没学习成功！");
+		//responseTextMessageModel.setContent("亲，对不起：“" + requestContent + "” 指令还没学习成功！");
+		responseTextMessageModel.setContent(MseeageHander.handerText(requestTextMessageModel.getFromUserName(), requestContent));
 		
 		return responseTextMessageModel;
 		
