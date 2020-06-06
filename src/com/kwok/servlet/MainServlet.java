@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kwok.commons.MsgType;
 import com.kwok.config.AppConfig;
+import com.kwok.controller.EventController;
 import com.kwok.controller.TextMessageController;
+import com.kwok.model.request.RequestEventModel;
 import com.kwok.model.request.RequestTextMessageModel;
+import com.kwok.model.response.ResponseEventModel;
 import com.kwok.model.response.ResponseTextMessageModel;
 import com.kwok.util.WXUtil;
 import com.qq.weixin.mp.aes.AesException;
@@ -95,13 +98,14 @@ public class MainServlet extends HttpServlet {
 		case MsgType.TEXT:
 			
 			// 文本消息内容
-			String Content = reqMapMessage.get("Content");
+			String content = reqMapMessage.get("Content");
 			
 			RequestTextMessageModel requestTextMessageModel = new RequestTextMessageModel(); 
 			requestTextMessageModel.setFromUserName(userName);
 			requestTextMessageModel.setToUserName(appName);
 			requestTextMessageModel.setCreateTime(createTime);
-			requestTextMessageModel.setContent(Content);
+			requestTextMessageModel.setMsgType(msgType);
+			requestTextMessageModel.setContent(content);
 			requestTextMessageModel.setMsgId(msgId);
 			
 			ResponseTextMessageModel responseTextMessageModel = TextMessageController.execute(requestTextMessageModel);
@@ -124,24 +128,81 @@ public class MainServlet extends HttpServlet {
 			break;
 		case MsgType.IMAGE:
 			
+			System.out.println("------ 图片消息 ------");
+			System.out.println(reqMapMessage.get("PicUrl"));
+			System.out.println(reqMapMessage.get("MediaId"));
+			System.out.println("------ 图片消息 ------");
+			
 			break;
 		case MsgType.VOICE:
+			
+			System.out.println("------ 语音消息 ------");
+			System.out.println(reqMapMessage.get("MediaId"));
+			System.out.println(reqMapMessage.get("Format"));
+			System.out.println(reqMapMessage.get("Recognition"));
+			System.out.println("------ 语音消息 ------");
 			
 			break;
 		case MsgType.VIDEO:
 			
+			System.out.println("------ 视频消息 ------");
+			System.out.println(reqMapMessage.get("MediaId"));
+			System.out.println(reqMapMessage.get("ThumbMediaId"));
+			System.out.println("------ 视频消息 ------");
+			
 			break;
 		case MsgType.SHORTVIDEO:
+			
+			System.out.println("------ 小视频消息 ------");
+			System.out.println(reqMapMessage.get("MediaId"));
+			System.out.println(reqMapMessage.get("ThumbMediaId"));
+			System.out.println("------ 小视频消息 ------");
 			
 			break;
 		case MsgType.LOCATION:
 			
+			System.out.println("------ 位置消息 ------");
+			System.out.println("纬度：" + reqMapMessage.get("Location_X"));
+			System.out.println("经度：" + reqMapMessage.get("Location_Y"));
+			System.out.println("位置:" + reqMapMessage.get("Label"));
+			System.out.println("缩放:" + reqMapMessage.get("Scale"));
+			System.out.println("****** 位置消息 ******");
+			
 			break;
 		case MsgType.LINK:
+			
+			System.out.println("------ 链接消息 ------");
+			System.out.println(reqMapMessage.get("Title"));
+			System.out.println(reqMapMessage.get("Description"));
+			System.out.println(reqMapMessage.get("Url"));
+			System.out.println("------ 链接消息 ------");
+			
+			break;
+		case MsgType.EVENT:
+			
+			RequestEventModel requestEventModel = new RequestEventModel(reqMapMessage);
+			ResponseEventModel responseEventModel = EventController.execute(requestEventModel);
+			
+			if(encrypt_type != null){
+				//安全模式
+				try {
+					String resEncryptXmlMessage = mc.encryptMsg(responseEventModel.responseTextMessageModel.toXmlString(), timestamp, nonce);
+					response.getWriter().append(resEncryptXmlMessage);
+				} catch (AesException e) {
+					System.err.println("------ 消息加密错误 ------");
+					e.printStackTrace();
+				}
+				
+			}else{
+				// 明文模式
+				response.getWriter().append(responseEventModel.responseTextMessageModel.toXmlString());
+			}
 			
 			break;
 		default:
 			
+			System.err.println("------ 消息类型错误 ------");
+		
 			break;
 		}
 		
